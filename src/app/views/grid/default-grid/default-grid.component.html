@@ -1,90 +1,80 @@
 <p-table
-    #dt
-    [columns]="cols"
-    [value]="data"
-    responsiveLayout="scroll"
-    selectionMode="single"
-    [scrollable]="true"
-    [resizableColumns]="true"
+  #dt
+  [columns]="cols"
+  [value]="data"
+  responsiveLayout="scroll"
+  selectionMode="single"
+  [scrollable]="true"
+  [resizableColumns]="true"
 >
-    <ng-template pTemplate="caption">
-        <div class="row">
-            <div
-                class="col-12 col-sm-12"
-                style="text-align: right;"
-            >
-                <span class="p-input-icon-right ml-auto">
-                    <i class="pi pi-search"></i>
-                    <input
-                        class="form-control from-control-sm"
-                        type="text"
-                        (input)="dt.filterGlobal($any($event.target).value, 'contains')"
-                        placeholder="Search keyword"
-                    >
-                </span>
-            </div>
-        </div>
-    </ng-template>
+  <ng-template pTemplate="caption">
+    <div class="row">
+      <div class="col-12 col-sm-12" style="text-align: right">
+        <span class="p-input-icon-right ml-auto">
+          <i class="pi pi-search"></i>
+          <input
+            class="form-control from-control-sm"
+            type="text"
+            (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+            placeholder="Search keyword"
+          />
+        </span>
+      </div>
+    </div>
+  </ng-template>
 
-    <ng-template
-        pTemplate="header"
-        let-rowIndex="rowIndex"
-        let-columns
-    >
-        <tr>
-            <th
-                *ngFor="let col of columns"
-                [pSortableColumn]="col.field"
-                pResizableColumn
-            >
-                {{col.header}}
-                <span>
-                    <p-sortIcon [field]="col.field"></p-sortIcon>
-                </span>
-            </th>
-            <th *ngIf="hasAction">Action</th>
-        </tr>
-        <tr>
-            <th *ngFor="let col of columns">
-                <p-columnFilter
-                    type="text"
-                    [field]="col.field"
-                    [placeholder]="'Filter '+col.header"
-                ></p-columnFilter>
-            </th>
-            <th *ngIf="hasAction"></th>
-        </tr>
-    </ng-template>
-    <ng-template
-        pTemplate="body"
-        let-rowIndex="rowIndex"
-        let-rowData
-        let-columns="columns"
-    >
-        <tr [pSelectableRow]="rowIndex + 1">
-            <td *ngFor="let col of columns">{{rowData[col.field] | titlecase}}</td>
-            <td class="action" *ngIf="hasAction">
-                <button
-                    type="button"
-                    pButton
-                    pRipple
-                    (click)="modifyRowData(rowData)"
-                    class="p-button-primary"
-                    [label]="gridModifyButtonName"
-                >
-                </button>
-                <button
-                    *ngIf="hasGridDeleteButton"
-                    type="button"
-                    pButton
-                    pRipple
-                    (click)="deleteRowData(rowData)"
-                    class="p-button-warning"
-                    [label]="gridDeleteButtonName"
-                >                  
-                </button>
-                
-            </td>
-        </tr>
-    </ng-template>
+  <ng-template pTemplate="header" let-rowIndex="rowIndex" let-columns>
+    <tr>
+      <th
+        *ngFor="let col of columns"
+        [pSortableColumn]="col.field"
+        pResizableColumn
+      >
+        {{ col.header }}
+        <span>
+          <p-sortIcon [field]="col.field"></p-sortIcon>
+        </span>
+      </th>
+      <th *ngIf="hasAction">Action</th>
+    </tr>
+    <tr>
+      <th *ngFor="let col of columns">
+        <p-columnFilter
+          type="text"
+          [field]="col.field"
+          [placeholder]="'Filter ' + col.header"
+        ></p-columnFilter>
+      </th>
+      <th *ngIf="hasAction"></th>
+    </tr>
+  </ng-template>
+  <ng-template
+    pTemplate="body"
+    let-rowIndex="rowIndex"
+    let-rowData
+    let-columns="columns"
+  >
+    <tr [pSelectableRow]="rowIndex + 1">
+      <td *ngFor="let col of columns">{{ rowData[col.field] | titlecase }}</td>
+      <td class="action" *ngIf="hasAction">
+        <button
+          type="button"
+          pButton
+          pRipple
+          (click)="modifyRowData(rowData)"
+          class="p-button-primary"
+          [label]="gridModifyButtonName"
+        ></button>
+        <button
+          *ngIf="hasGridDeleteButton"
+          type="button"
+          pButton
+          pRipple
+          (click)="deleteRowData(rowData)"
+          class="p-button-warning"
+          [label]="gridDeleteButtonName"
+        ></button>
+      </td>
+    </tr>
+  </ng-template>
 </p-table>
